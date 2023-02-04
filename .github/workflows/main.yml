@@ -1,5 +1,4 @@
 name: Meu Curriculo Deploy Hostgator
-
 on:
   push:
     branches: 
@@ -8,12 +7,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Make ${{matrix.work}} ${{matrix.arch}}
     steps:
       - name: Checkout do repositorio
         uses: actions/checkout@v1
       - name: Deploy para meu hosting
-        uses: MitchWind/ftp-deploy@master
+        uses: easingthemes/ssh-deploy@main
         env:
             SSH_PRIVATE: ${{ secrets.SERVER_SSH_KEY }}
             ARGS: "-rltgoDzv0 --delete"
@@ -21,5 +19,4 @@ jobs:
             REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
             REMOTE_USER: ${{ secrets.REMOTE_USER }}
             REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-            TARGET: ${{ secrets.REMOTE_TARGET }}
-            
+            TARGET: ${{ secrets.REMOTE_TARGET }}            
